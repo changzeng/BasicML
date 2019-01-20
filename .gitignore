@@ -1,0 +1,6 @@
+.idea
+*/.idea
+*/venv
+*.exe
+*/CMakeFiles
+*/cmake-build-debug
