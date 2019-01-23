@@ -1,13 +1,15 @@
 #include <iostream>
 #include <vector>
-#include "dataset.cpp"
-#include "gbdt.cpp"
+#include "dataset.h"
+#include "cart.cpp"
 
-using std::cout;
+using namespace std;
 
 int main() {
-    DataSet dataSet = DataSet(1000, 10, 10);
-    GBDT model = GBDT();
-    model.fit(dataSet);
+    shared_ptr<DataSet> dataset = make_shared<DataSet>(1000, 10, 2);
+    Cart cart;
+    cart.fit(dataset);
+//    GBDT model = GBDT();
+//    model.fit(dataSet);
     return 0;
 }

@@ -3,4 +3,4 @@ project(GBDT)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(GBDT main.cpp dataset.cpp gbdt.cpp)
+add_executable(GBDT main.cpp dataset.cpp gbdt.cpp cart.cpp dataset.h)
