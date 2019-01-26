@@ -25,39 +25,14 @@ DataSet::DataSet(int sample_num, int dim, int label_num){
     this->make_feature_list();
 }
 
-DataSet::DataSet(){
-    this->sample_num = 0;
-    this->label_num = 0;
-}
-
-void DataSet::make_feature_list() {
-    for(int i=0; i<this->dim; i++)
-        this->feature_list.emplace_back();
-    for(auto &sample : this->sample_list){
-        for(int i=0; i<this->dim; i++)
-            this->feature_list[i].insert(sample->get(i));
-    }
-}
-
-void DataSet::add_sample(shared_ptr<Sample> ptr){
+void DataSet::add_sample(shared_ptr<Sample> &ptr){
     this->sample_list.push_back(ptr);
-    this->sample_num += 1;
+    for(int i=0; i<this->dim; i++){
+        this->feature_list[i].insert(ptr->get(i));
+    }
 }
 
-void DataSet::split(int fea_index, double fea_val, shared_ptr<DataSet> & left, shared_ptr<DataSet> & right){
-    int i=0;
-    for(auto &sample : this->sample_list){
-        if(sample->get(fea_index) < fea_val){
-            left->add_sample(sample);
-            left->label_list.push_back(this->label_list[i]);
-            left->label_num += 1;
-        }else{
-            right->add_sample(sample);
-            right->label_list.push_back(this->label_list[i]);
-            right->label_num += 1;
-        }
-        i += 1;
-    }
-    left->make_feature_list();
-    right->make_feature_list();
+void DataSet::add_sample(shared_ptr<Sample> &ptr, int label){
+    this->add_sample(ptr);
+    this->label_list.push_back(label);
 }
